@@ -2,7 +2,6 @@ import { useState } from "react";
 import "./App.css";
 import Forminput from "./components/Forminput";
 
-
 function App() {
   const [values, setValues] = useState({
     username: "",
@@ -18,19 +17,24 @@ function App() {
       name: "username",
       type: "text",
       placeholder: "Username",
+      errorMessage:"Username shold be 3-16 characters and shouldn't include any special character!",
       label: "Username",
+      pattern:"^[A-Za-z0-9]{3,16}$",
+      required:true,
     },
     {
       id: 2,
       name: "email",
-      type: "text",
+      type: "email",
       placeholder: "Email",
+      errorMessage:"It should be valid email address!",
       label: "Email",
+      required:true,
     },
     {
       id: 3,
       name: "birthday",
-      type: "text",
+      type: "date",
       placeholder: "Birthday",
       label: "Birthday",
     },
@@ -39,14 +43,20 @@ function App() {
       name: "password",
       type: "password",
       placeholder: "Password",
+      errorMessage:"Password shoild be 8-20 character and include at least 1 latter, 1 Number and one special character",
       label: "Password",
+      pattern:'^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$',
+      required:true,
     },
     {
       id: 5,
       name: "confirmPassword",
       type: "password",
       placeholder: "Confirm Password",
+      errorMessage:"Passwords don't match!",
       label: "Confirm Password",
+      pattern: values.password,
+      required:true,
     },
   ];
 
@@ -63,6 +73,7 @@ function App() {
   return (
     <div className="app">
       <form onSubmit={handleSubmit}>
+      <h1>Register</h1>
         {inputs.map((input) => (
           <Forminput
             key={input.id}
